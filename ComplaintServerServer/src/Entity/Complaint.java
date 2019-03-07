@@ -1,6 +1,10 @@
 package Entity;
 
-public class Complaint {
+import java.io.Serializable;
+
+public class Complaint implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String type;
 	private String priority;
 	private String local;
