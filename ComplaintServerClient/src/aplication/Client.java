@@ -19,7 +19,7 @@ public class Client {
 		
 		try {
 			
-			IComplaintManager stub = (IComplaintManager) Naming.lookup("rmi://192.168.43.28/ComplaintManager");
+			IComplaintManager stub = (IComplaintManager) Naming.lookup("rmi://localhost/ComplaintManager");
 			
 			// Variables
 			String type;
