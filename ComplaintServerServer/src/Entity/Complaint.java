@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class Complaint implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private String type;
-	private String priority;
-	private String local;
-	private String governmentAgency;
-	private String description;
+	private String 		 type;
+	private PriorityEnum priority;
+	private String 		 local;
+	private String 		 governmentAgency;
+	private String 		 description;
 	
-	public Complaint (String type, String priority, String local, String governmentAgency, String description) {
+	public Complaint (String type, PriorityEnum priority, String local, String governmentAgency, String description) {
 		this.type 			  = type;
 		this.priority 		  = priority;
 		this.local 			  = local;
@@ -23,7 +23,7 @@ public class Complaint implements Serializable {
 		return type;
 	}
 	
-	public String getPriority() {
+	public PriorityEnum getPriority() {
 		return priority;
 	}
 	
@@ -39,7 +39,13 @@ public class Complaint implements Serializable {
 		return description;
 	}
 	
-	public void setPriority(String priority) {
+	public void setPriority(PriorityEnum priority) {
 		this.priority = priority;
+	}
+	
+	@Override
+	public String toString() {
+		return "Tipo: " + this.type + ", prioridade: " + this.priority + ", local" + this.local +
+				", orgao responsavel: " + this.governmentAgency + ", descricao: " + this.description;
 	}
 }

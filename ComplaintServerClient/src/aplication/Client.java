@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Entity.Complaint;
+import Entity.PriorityEnum;
 
 public class Client {
 	
-	public static void main(String[] args) throws RemoteException, 
-	NotBoundException, MalformedURLException {
+	public static void main(String[] args) {
 
 		Scanner input = new Scanner(System.in);
 		
@@ -24,11 +24,11 @@ public class Client {
 			// Variables
 			String type;
 			String local;
-			String priority;
+			PriorityEnum priority = null;
 			String governmentAgency;
 			String description;
 			
-			System.out.println("Cadastro de Reclamação:");
+			System.out.println("Cadastro de Reclamacao:");
 			
 			System.out.println("Tipo: ");
 			type = input.next();
@@ -36,28 +36,51 @@ public class Client {
 			System.out.println("Local: ");
 			local = input.next();
 			
-			System.out.println("Prioridade: ");
-			priority = input.next();
+			for (;;) {
+				System.out.println("Escolha a prioridade: ");
+				System.out.println("1 - URGENTE");
+				System.out.println("2 - ALTA");
+				System.out.println("3 - MEDIA");
+				System.out.println("4 - BAIXA");
+				int priorityInt = input.nextInt();
+				
+				if (priorityInt >= 1 && priorityInt <= 4) {
+					switch(priorityInt) {
+						case 1:
+							priority = PriorityEnum.URGENTE;
+							break;
+						case 2:
+							priority = PriorityEnum.ALTA;
+							break;
+						case 3:
+							priority = PriorityEnum.MEDIA;
+							break;
+						case 4:
+							priority = PriorityEnum.BAIXA;
+							break;
+					}
+					break;
+				} else {
+					System.out.println("Op��o Invalida, digite novamente \n");
+				}
+			}
 			
 			System.out.println("Departamento: ");
 			governmentAgency = input.next();
 			
-			System.out.println("Descrição: ");
+			System.out.println("Descricao: ");
 			description = input.next();
 			
 			stub.register(new Complaint (type, priority, local, governmentAgency, description));
 			
-			ArrayList<Complaint> complaits = stub.complaints();
+			ArrayList<Complaint> complaints = stub.complaints();
 			
-			// tests
-			System.out.println(complaits.get(0).getType());
-			System.out.println(complaits.get(0).getLocal());
-			System.out.println(complaits.get(0).getPriority());
-			System.out.println(complaits.get(0).getGovernmentAgency());
-			System.out.println(complaits.get(0).getDescription());
-					
-		} catch (ConnectException e) {
-			System.out.println("Conexão não estabelicida. Encerrando o programa!");
+			for (Complaint c : complaints) {
+				System.out.println(c.toString());
+			}
+			
+		} catch (RemoteException | NotBoundException | MalformedURLException  e) {
+			System.out.println("Conexao nao estabelicida. Encerrando o programa!");
 		} finally {
 			input.close();
 		}					
